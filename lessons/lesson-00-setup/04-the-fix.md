@@ -25,25 +25,28 @@ You can see that PR here:
 
 A **pull request** is how you propose a fix to someone else's open source project. You make the change in your fork and ask the maintainer to "pull" it into the official version. The fix is pending review — it hasn't been merged yet.
 
-## Vocabulary
+## Why any of this is possible: distributed version control
 
-- **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
-- **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
-- **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
-- **fork** — your own copy of someone else's repo. `nafeger/Sts2-ModSmith` is a fork of `cpimhoff/Sts2-ModSmith` with these fixes applied.
+Git is a **distributed** version control system. That word matters.
 
-## Fork the fixed version and rebuild
+In a centralized system, there's one server and everyone connects to it. If that server has bad code, you're stuck.
 
-The official repo doesn't have the fix yet. Fork the version that does:
+In a distributed system, every clone is a complete copy of the repo — full history and all. There's no single source of truth that everyone must obey. `cpimhoff/Sts2-ModSmith` and `nafeger/Sts2-ModSmith` are both complete, valid copies of the same repo at different points in time. Your local clone is too.
 
-1. Go to [https://github.com/nafeger/Sts2-ModSmith](https://github.com/nafeger/Sts2-ModSmith)
-2. Click **Fork** and create it under your account
-3. Back in your terminal, update your local repo to point at your new fork:
+This means you can point your local repo at *any* compatible remote and pull from it. Remotes are just URLs — they're not special. You can change where `origin` points, add new remotes, pull from one and push to another. The code on your machine doesn't care which server it came from.
+
+That's what makes open source work at scale. Someone finds a bug, fixes it in their copy, and anyone can pull that fix immediately — without waiting for the original maintainer to merge it.
+
+## Switch to the fixed version and rebuild
+
+You already have the repo cloned. You don't need to fork anything — just tell git to pull from the version that has the fix:
 
 ```bash
-git remote set-url origin https://github.com/YOUR-USERNAME/Sts2-ModSmith.git
+git remote set-url origin https://github.com/nafeger/Sts2-ModSmith.git
 git pull
 ```
+
+The first command changes where `origin` points. The second pulls down the updated code. Your local history stays intact — git figures out what changed and applies it.
 
 Now run `dotnet build` again from the `ModTemplate` folder:
 
@@ -53,11 +56,20 @@ dotnet build
 
 This time it should succeed.
 
+## Vocabulary
+
+- **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
+- **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
+- **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
+- **distributed version control** — a system where every clone is a complete copy of the repo, not just a connection to a central server. Git is distributed; older systems like SVN were centralized.
+- **remote** — a named URL that git knows about. `origin` is just the conventional name for the default one. You can have as many remotes as you like.
+
 ## Things to look up
 
 - "what is an API in programming"
 - "what is open source software"
 - "how does a github pull request work"
+- "git distributed vs centralized version control"
 
 ---
 
