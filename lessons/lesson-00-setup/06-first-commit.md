@@ -4,7 +4,7 @@ The mod template has placeholder values in it — it says `"your-name"` where yo
 
 ## Update the manifest
 
-Open `ModTemplate.json` in VS Code. It looks something like this:
+Open `ModTemplate.json` in VS Code — it's in the root of the `ModTemplate` folder, not inside `src/`. It looks something like this:
 
 ```json
 {

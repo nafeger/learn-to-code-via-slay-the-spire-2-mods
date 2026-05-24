@@ -34,9 +34,34 @@ Once installed, add the **C# Dev Kit** extension:
 2. Click the Extensions icon in the left sidebar (or press `Cmd+Shift+X` / `Ctrl+Shift+X`)
 3. Search for "C# Dev Kit" and install it
 
+## What you cloned
+
+When you ran `git clone https://github.com/cpimhoff/Sts2-ModSmith.git` in step 01, it created a folder called `Sts2-ModSmith` wherever your terminal was. Inside that folder is the actual mod template you'll work with, called `ModTemplate`:
+
+```
+Sts2-ModSmith/
+  ModTemplate/          <-- this is your mod project
+    src/
+      StarterContent/
+        cards/
+          CoinFlip.cs
+        ...
+    project.godot
+    ModTemplate.json
+  ...
+```
+
+Every time the lessons refer to a file like `src/StarterContent/cards/CoinFlip.cs`, that path is relative to the `ModTemplate` folder.
+
 ## Try to build
 
-Once the guide says you're ready, open a terminal in the `ModTemplate` folder inside your cloned repo and run:
+Open a terminal, navigate into `ModTemplate`, and run:
+
+```bash
+cd Sts2-ModSmith/ModTemplate
+```
+
+Then:
 
 ```bash
 dotnet build
