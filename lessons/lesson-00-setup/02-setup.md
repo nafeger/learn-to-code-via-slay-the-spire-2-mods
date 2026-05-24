@@ -13,6 +13,16 @@ Work through that guide completely. It covers:
 - Configuring your Steam library path
 - Opening the project
 
+### .NET version note
+
+The guide may suggest installing .NET 9 via a curl script. On Mac, the simpler path is:
+
+```bash
+brew install --cask dotnet-sdk
+```
+
+This installs .NET 10, which works fine — the mod project targets `net9.0` but any newer SDK can build it. If `dotnet --version` shows 10.x after installing, you're good.
+
 ## Recommended editor: VS Code
 
 The guide may mention several editors. Use **Visual Studio Code** — it's free, fast, and has excellent C# support. You'll use it for the rest of this curriculum.
