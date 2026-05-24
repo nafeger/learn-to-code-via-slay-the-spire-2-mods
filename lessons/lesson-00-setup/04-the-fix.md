@@ -39,7 +39,7 @@ That's what makes open source work at scale. Someone finds a bug, fixes it in th
 
 ## Switch to the fixed version and rebuild
 
-You already have the repo cloned. You don't need to fork anything — just tell git to pull from the version that has the fix:
+You already have the repo cloned. Just tell git to pull from the version that has the fix:
 
 ```bash
 git remote set-url origin https://github.com/nafeger/Sts2-ModSmith.git
@@ -48,7 +48,7 @@ git pull
 
 The first command changes where `origin` points. The second pulls down the updated code. Your local history stays intact — git figures out what changed and applies it.
 
-Now run `dotnet build` again from the `ModTemplate` folder:
+Now build again from the `ModTemplate` folder:
 
 ```bash
 dotnet build
@@ -56,13 +56,64 @@ dotnet build
 
 This time it should succeed.
 
+## Install the fixed template and scaffold your own mod
+
+The ModSmith template is a `dotnet new` template — a blueprint for creating new mod projects. Now that you have the fixed version locally, install it:
+
+```bash
+cd ~/code/Sts2-ModSmith
+dotnet new install ./ModTemplate --force
+```
+
+Then scaffold your own mod project. Go back to your `~/code` folder and create it there:
+
+```bash
+cd ~/code
+dotnet new modsmith-mod -n JacksMod --StarterContent
+```
+
+Replace `JacksMod` with whatever you want to call your mod. The `--StarterContent` flag includes example code (CoinFlip, GoldArmor, etc.) that you'll read and modify in the lessons ahead.
+
+Build it to confirm it works:
+
+```bash
+cd JacksMod
+dotnet build
+```
+
+This is your mod. It lives at `~/code/JacksMod`, separate from the ModSmith framework. The ModSmith clone in `~/code/Sts2-ModSmith` is now just reference material — you won't edit it directly again.
+
+## Create a GitHub repo for your mod
+
+Your mod needs its own home on GitHub.
+
+1. Go to [github.com/new](https://github.com/new)
+2. Name it `JacksMod` (or whatever you chose above)
+3. Set it to **Public**
+4. Do **not** check "Add a README file" — your project already has one
+5. Click **Create repository**
+
+GitHub will show you instructions for pushing an existing repo. Run those — they'll look like:
+
+```bash
+git init
+git add .
+git commit -m "chore: initial mod scaffold"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/JacksMod.git
+git push -u origin main
+```
+
+Now your mod is on GitHub and everything you build from here lives there.
+
 ## Vocabulary
 
 - **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
 - **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
 - **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
 - **distributed version control** — a system where every clone is a complete copy of the repo, not just a connection to a central server. Git is distributed; older systems like SVN were centralized.
-- **remote** — a named URL that git knows about. `origin` is just the conventional name for the default one. You can have as many remotes as you like.
+- **remote** — a named URL that git knows about. `origin` is just the conventional name for the default one.
+- **template** — a blueprint for generating new projects. `dotnet new modsmith-mod` uses the ModSmith template to scaffold a working mod skeleton.
 
 ## Things to look up
 
@@ -70,6 +121,7 @@ This time it should succeed.
 - "what is open source software"
 - "how does a github pull request work"
 - "git distributed vs centralized version control"
+- "dotnet new template explained"
 
 ---
 
