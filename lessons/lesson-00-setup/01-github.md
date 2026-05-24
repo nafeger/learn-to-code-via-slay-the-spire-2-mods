@@ -18,31 +18,26 @@ Go to [github.com](https://github.com) and create a free account if you don't ha
 
 Pick a username you're happy with — it'll show up publicly on your work.
 
-## Step 2 — Fork the mod template
+## Step 2 — Create a repo for your mod project
 
-The mod template lives at:
+You're going to build a mod. That mod needs its own home on GitHub.
 
-**[https://github.com/nafeger/Sts2-ModSmith](https://github.com/nafeger/Sts2-ModSmith)**
+1. Go to [github.com/new](https://github.com/new)
+2. Name it something like `my-sts2-mod` (you can rename it later)
+3. Set it to **Public**
+4. Check **Add a README file**
+5. Click **Create repository**
 
-> This is a fork of the official ModSmith repository. You'll find out why you're using this one instead of the original in a later step.
+This is your mod's repo. Everything you build in this curriculum lives here.
 
-1. Go to that URL
-2. Click the **Fork** button in the top right
-3. Under "Owner", select your own account
-4. Click **Create fork**
+## Step 3 — Clone the ModSmith template
 
-You now have your own copy of the repo at `https://github.com/YOUR-USERNAME/Sts2-ModSmith`.
-
-## Step 3 — Clone it to your machine
-
-Open a terminal and run:
+The mod framework you'll use is called **ModSmith**. Clone the official repo to your machine:
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/Sts2-ModSmith.git
+git clone https://github.com/cpimhoff/Sts2-ModSmith.git
 cd Sts2-ModSmith
 ```
-
-Replace `YOUR-USERNAME` with your actual GitHub username.
 
 You should now have the project files on your machine. Take a look around — don't worry about understanding everything yet.
 
@@ -54,7 +49,7 @@ Run:
 git remote -v
 ```
 
-You should see `origin` pointing to your fork. That means when you push changes, they go to your copy on GitHub, not the original.
+You should see `origin` pointing to `cpimhoff/Sts2-ModSmith`. That's the official upstream repo.
 
 ---
 

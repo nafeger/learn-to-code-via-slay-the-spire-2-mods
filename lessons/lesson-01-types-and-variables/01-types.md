@@ -10,6 +10,28 @@ Types are that context. When the compiler knows a value is an `int`, it knows yo
 
 The compiler uses this information to catch mistakes before the game ever runs. That's exactly what happened in Lesson 0 — `TalkCmd.Play` expected a `VfxColor` and the template was passing a `double`. The types didn't match, so the compiler refused to build.
 
+## Two ways to think about types
+
+There are two different things people mean when they say "type," and it's worth separating them early.
+
+**Technical types** (also called primitive types) are the ones the language gives you: `int`, `string`, `bool`, `float`. These describe the shape of the data — is it a number? Text? True or false?
+
+**Domain types** (or business types) are the meaning behind the data. Consider this:
+
+```csharp
+int damage = 8;
+int gold = 8;
+int strength = 8;
+```
+
+All three are `int`. The compiler treats them identically. But you and I know they're completely different things — you don't add damage to gold, you don't spend strength at a shop.
+
+Right now, nothing stops you from writing `gold = gold + damage` accidentally. The compiler won't catch it because both are `int`.
+
+Domain types are how you fix that. In later lessons you'll learn to create your own types — classes and structs — that encode meaning into the type system so the compiler can catch those mistakes too. `GoldVar`, `BlockVar`, `DamageVar` in the mod code are all examples of this: they wrap a number, but they carry meaning that a plain `int` doesn't.
+
+For now, just hold onto this distinction: a type tells the computer the *shape* of the data. A well-designed type also tells it the *meaning*.
+
 ## The types you'll use most
 
 ### `int`

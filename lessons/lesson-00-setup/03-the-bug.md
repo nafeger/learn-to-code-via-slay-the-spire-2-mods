@@ -34,6 +34,23 @@ Take a few minutes to work through these questions with your parent before readi
 2. The error says it can't convert a `double` to a `VfxColor`. What do you think `double` means? What do you think `VfxColor` might be?
 3. The second error says a call is "ambiguous." What does ambiguous mean in plain English? Why might that be a problem for a compiler?
 
+## Looking it up
+
+When you hit an error code you don't recognize, search for it. Use a search engine — start with the error code on its own:
+
+```
+CS1503 C#
+CS0121 C#
+```
+
+Avoid relying purely on AI tools for this step — you'll learn more by reading a Stack Overflow answer or the official docs, even if it takes longer. The goal is to build a mental model of what the error means, not just get a fix handed to you.
+
+**Also check the repo's issue tracker.** Real bugs like these often get reported before they get fixed. Go to:
+
+👉 [https://github.com/cpimhoff/Sts2-ModSmith/issues](https://github.com/cpimhoff/Sts2-ModSmith/issues)
+
+See if these errors show up there. Someone else may have already reported exactly what you're seeing.
+
 ## Vocabulary
 
 - **compiler** — a program that translates your code into something the computer can run. It checks for errors before anything runs.
@@ -46,6 +63,7 @@ Take a few minutes to work through these questions with your parent before readi
 - "CS1503 C# error"
 - "CS0121 C# error"
 - "what is a type in programming"
+- "how to read a stack overflow answer"
 
 ---
 

@@ -2,7 +2,7 @@
 
 Here's something worth knowing: the official ModSmith template has bugs. The game was updated and two things changed in the API — code that used to work stopped compiling.
 
-Your parent found these bugs while setting up this curriculum, figured out what was wrong, and filed a fix with the ModSmith project.
+@nafeger found these bugs while setting up this curriculum, figured out what was wrong, and filed a fix with the ModSmith project.
 
 ## What happened
 
@@ -14,7 +14,7 @@ The game updated its API. A method called `TalkCmd.Play` used to take a duration
 
 ModSmith used to include a helper method called `IsPoweredAttack` because the game didn't have it yet. Then the game added it natively. Now it exists in two places with the same name, and the compiler can't decide which one to use — hence "ambiguous."
 
-## What your parent did about it
+## What @nafeger did about it
 
 1. Used a decompiler to inspect the game's DLL and find the correct new API signatures
 2. Fixed both files in the template
@@ -30,11 +30,22 @@ A **pull request** is how you propose a fix to someone else's open source projec
 - **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
 - **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
 - **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
-- **fork** — remember from lesson 01? Your parent's fork at `nafeger/Sts2-ModSmith` has these fixes. The upstream `cpimhoff/Sts2-ModSmith` does not yet.
+- **fork** — your own copy of someone else's repo. `nafeger/Sts2-ModSmith` is a fork of `cpimhoff/Sts2-ModSmith` with these fixes applied.
 
-## Switch to the working fork
+## Fork the fixed version and rebuild
 
-You already cloned your fork of `nafeger/Sts2-ModSmith` in step 01 — which means you already have the fixes. Run `dotnet build` again from the `ModTemplate` folder:
+The official repo doesn't have the fix yet. Fork the version that does:
+
+1. Go to [https://github.com/nafeger/Sts2-ModSmith](https://github.com/nafeger/Sts2-ModSmith)
+2. Click **Fork** and create it under your account
+3. Back in your terminal, update your local repo to point at your new fork:
+
+```bash
+git remote set-url origin https://github.com/YOUR-USERNAME/Sts2-ModSmith.git
+git pull
+```
+
+Now run `dotnet build` again from the `ModTemplate` folder:
 
 ```bash
 dotnet build
