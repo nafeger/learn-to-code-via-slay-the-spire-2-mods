@@ -58,31 +58,11 @@ git push
 
 Now go to your GitHub repo in a browser. You should see your commit in the history.
 
-## A note on remotes and upstreams
+## A note on what you're working in
 
-Run this and look at the output:
+Right now you're working inside your fork of `Sts2-ModSmith` — modifying the template that came with the framework. That's intentional for now. The starter content (CoinFlip, TheGoldCoinRoom, etc.) is your reference material for the next few lessons.
 
-```bash
-git remote -v
-```
-
-You have at least two repos in play now:
-
-- **Your fork of Sts2-ModSmith** — this is where the mod template and framework live. Your `origin` points here.
-- **Your mod project repo** — the one you created in step 01. This is where your actual mod code will eventually live.
-
-When your fork diverges from the original, git tracks these as separate **remotes**. You can add the original repo as an `upstream` remote — that lets you pull in future official changes:
-
-```bash
-git remote add upstream https://github.com/cpimhoff/Sts2-ModSmith.git
-git remote -v
-```
-
-Now you have:
-- `origin` — your fork (you push here)
-- `upstream` — the official repo (you pull from here when it updates)
-
-This pattern — fork + upstream — is how most open source contribution workflows are structured. You'll see it constantly.
+In Lesson 4 you'll create your own standalone mod project from scratch. That's when you'll make a new GitHub repo and push your own work to it. For now, this fork is your workshop.
 
 ## Verify in game
 
@@ -98,7 +78,6 @@ Go back to [README.md](README.md) and check off every item in the success criter
 - "git add vs git commit"
 - "git push vs git commit difference"
 - "how to write a good commit message"
-- "git remote add upstream explained"
 
 ---
 

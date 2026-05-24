@@ -18,19 +18,7 @@ Go to [github.com](https://github.com) and create a free account if you don't ha
 
 Pick a username you're happy with — it'll show up publicly on your work.
 
-## Step 2 — Create a repo for your mod project
-
-You're going to build a mod. That mod needs its own home on GitHub.
-
-1. Go to [github.com/new](https://github.com/new)
-2. Name it something like `my-sts2-mod` (you can rename it later)
-3. Set it to **Public**
-4. Check **Add a README file**
-5. Click **Create repository**
-
-This is your mod's repo. Everything you build in this curriculum lives here.
-
-## Step 3 — Clone the ModSmith template
+## Step 2 — Clone the ModSmith template
 
 The mod framework you'll use is called **ModSmith**. Clone the official repo to your machine:
 
@@ -41,7 +29,7 @@ cd Sts2-ModSmith
 
 You should now have the project files on your machine. Take a look around — don't worry about understanding everything yet.
 
-## Step 4 — Verify your remote
+## Step 3 — Verify your remote
 
 Run:
 
