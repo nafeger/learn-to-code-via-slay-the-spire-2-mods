@@ -4,7 +4,7 @@ You have designed the methods. Now you write and wire up the event.
 
 ## The complete file
 
-Create `/Volumes/DevSSD/gascity/nate-land/rigs/learn_sts2_modding/FirstSpireMod/src/StarterContent/events/RockPaperScissors.cs`:
+Create `src/StarterContent/events/RockPaperScissors.cs` inside your `JacksMod` project:
 
 ```csharp
 using ModSmith.Models;
@@ -13,7 +13,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Events;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
-namespace FirstSpireMod;
+namespace JacksMod;  // replace JacksMod with whatever you named your mod
 
 public sealed class RockPaperScissors : ModSmithEventModel
 {

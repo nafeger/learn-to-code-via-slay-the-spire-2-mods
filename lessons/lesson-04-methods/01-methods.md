@@ -174,6 +174,38 @@ private Outcome DetermineOutcome(Choice player, Choice computer)
 
 Notice that `DetermineOutcome` knows nothing about gold, the event system, or the player object. It only compares two choices and returns an outcome. That is by design. Pure, focused methods are easier to read, test, and change.
 
+## Naming conventions in C#
+
+C# has strong conventions for how things are named. You have been following them without thinking about it, but they are worth naming explicitly.
+
+**Methods and types use PascalCase** — every word starts with a capital letter:
+
+```csharp
+DetermineOutcome    // method
+PickComputerChoice  // method
+RockPaperScissors   // class
+EventOption         // class
+```
+
+**Local variables and parameters use camelCase** — first word lowercase, subsequent words capitalized:
+
+```csharp
+playerChoice    // parameter
+computerChoice  // local variable
+goldValue       // local variable
+```
+
+**Constants use UPPER_SNAKE_CASE** — all caps, words separated by underscores:
+
+```csharp
+WIN_GOLD    // constant
+BASE_GOLD   // constant
+```
+
+This is worth knowing because **most other languages do it differently**. Python and Ruby use `snake_case` for methods and variables (`determine_outcome`, `player_choice`). JavaScript commonly uses camelCase for methods (`determineOutcome`). Go uses mixed conventions. If you pick up another language later, the naming style is one of the first adjustments you make.
+
+C# is unusual in using PascalCase for all public-facing methods and types. It is not better or worse — it is just the community's convention, and code that follows it is easier for other C# developers to read.
+
 ## Vocabulary
 
 **Method** — A named, reusable block of code.

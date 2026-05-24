@@ -39,6 +39,40 @@ private Outcome DetermineOutcome(Choice player, Choice computer)
 
 `player` and `computer` are local to `DetermineOutcome`. The `Play` method has its own variables named `playerChoice` and `computerChoice`. They are different variables in different scopes — it does not matter that they hold the same values.
 
+## Passed by value vs by reference
+
+When you pass a parameter to a method, what exactly gets handed over?
+
+For **value types** (like `int`, `bool`, `Choice`, `Outcome`, or any `struct`), C# copies the value. The method gets its own copy. If the method modifies the parameter, the original is unchanged:
+
+```csharp
+private void AddTen(int number)
+{
+    number += 10;  // modifies only the local copy
+}
+
+int gold = 50;
+AddTen(gold);
+// gold is still 50
+```
+
+For **reference types** (like classes — `Player`, `List<int>`, most objects), the variable holds a reference (essentially a pointer) to an object in memory. C# copies the reference, not the object. If the method modifies the object through the reference, the caller sees the change:
+
+```csharp
+private void AddCard(List<int> hand, int cost)
+{
+    hand.Add(cost);  // modifies the actual list object
+}
+
+List<int> myHand = new List<int> { 1, 2, 3 };
+AddCard(myHand, 0);
+// myHand now contains { 1, 2, 3, 0 }
+```
+
+In the Rock Paper Scissors event, `Choice` and `Outcome` are `enum` types, which are value types. Passing `playerChoice` to `DetermineOutcome` copies the value — the method can't accidentally modify the caller's copy.
+
+The rule of thumb: **primitives and enums are safe to pass freely**. Objects and lists can be modified by the methods you pass them to, so be aware of that when you see reference types as parameters.
+
 ## Block scope
 
 Scope can be even narrower than a method. A variable declared inside an `if` block only exists inside that block:

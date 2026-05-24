@@ -14,7 +14,7 @@ This is straightforward `if`/`else if`/`else` with integer division. You'll writ
 
 ## Step 1: Read the existing code
 
-Open `src/StarterContent/events/TheGoldCoinRoom.cs`.
+Open `src/StarterContent/events/TheGoldCoinRoom.cs` in your `JacksMod` project.
 
 Before touching anything, read through it. Notice:
 
@@ -25,6 +25,14 @@ Before touching anything, read through it. Notice:
 - The player reference comes from `Owner is Player player`
 
 Your new method follows the same patterns.
+
+### What is `Task`?
+
+A `Task` represents work that will happen — and may not be done yet. Some game commands (like giving gold) need to run as animations in sequence, so the engine uses `Task` to say "start this, and don't move on until it finishes."
+
+When a method contains `await`, you mark it `async Task` and the compiler handles the sequencing. When a method never awaits anything, you write `private Task` and return `Task.CompletedTask` to signal "nothing to wait for." Either way, the event system treats them the same.
+
+You don't need to fully understand this yet — the important thing is to match the pattern: use `await` when calling commands like `PlayerCmd.GainGold`, and mark your method `async Task` whenever you do.
 
 ## Step 2: Write the ExamineIt method
 

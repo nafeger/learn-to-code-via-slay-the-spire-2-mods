@@ -24,7 +24,7 @@ VS Code will load the project. The C# Dev Kit will analyze the code — give it 
 
 A **breakpoint** tells the debugger "pause execution here so I can inspect what's happening." It's one of the most powerful tools you have.
 
-1. In the left sidebar, click the **Explorer** icon and open `src/ModTemplate.cs`
+1. In the left sidebar, click the **Explorer** icon and open `src/JacksMod.cs` (the file is named after your mod — if you named it something else, look for `src/<YourModName>.cs`)
 2. Find the `Initialize()` method
 3. Click in the grey margin to the left of the line that says `Logger.Info("Initializing...");`
 4. A red dot should appear — that's your breakpoint
@@ -33,7 +33,7 @@ A **breakpoint** tells the debugger "pause execution here so I can inspect what'
 
 The game runs as a separate process. To debug your mod, you attach VS Code to the running game.
 
-1. Run `dotnet publish` from the terminal in your `ModTemplate` folder to build and copy your mod to the game
+1. Run `dotnet publish` from the terminal in your `JacksMod` folder to build and copy your mod to the game
 2. Launch Slay the Spire 2 with mods enabled
 3. In VS Code, open the **Run and Debug** panel (left sidebar, or `Cmd+Shift+D` / `Ctrl+Shift+D`)
 4. Click **"create a launch.json file"** if prompted, and select **.NET**
