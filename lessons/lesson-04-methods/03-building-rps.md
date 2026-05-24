@@ -13,6 +13,12 @@ Rock Paper Scissors is:
 
 That description already tells you what methods you need.
 
+Programming is hard for at least two distinct reasons. The first is figuring out what you want to build — the problem itself. The second is figuring out how to model it in code: what types represent your data, what methods represent your actions, and how they talk to each other. These are separate skills, and good developers work on them separately. You write out the problem in plain words first, then translate those words into types and methods.
+
+That is exactly what this lesson does. The plain-language description gave you `Choice`, `Outcome`, `PickComputerChoice`, `DetermineOutcome`, and `Play` before you wrote a single line of C#.
+
+The type question — how to model a choice or an outcome — is why the earlier lessons talked about enums, structs, and the difference between a type that is just a number versus a type that carries meaning. You will revisit this more deeply in Lesson 5 when you start building your own classes. And when collections come up in Lesson 6, you will see how the same two-step process applies there: what does the collection represent, and which collection type fits?
+
 ## Step 1: Name the concepts
 
 Before writing code, name the things you are working with. In Rock Paper Scissors:
@@ -50,6 +56,22 @@ The draw case is easy: if both choices are the same, it is a draw.
 ```csharp
 if (player == computer) return Outcome.Draw;
 ```
+
+### What does `==` actually compare?
+
+This is worth pausing on, because the answer depends on what type you are comparing.
+
+**For value types** (primitives like `int`, `bool`, `double`, and enums), `==` compares the values directly. `Choice.Rock == Choice.Rock` is `true`. Under the hood, `Choice` is just an integer, so this is integer comparison.
+
+**For reference types** (most classes), `==` by default checks whether both variables point to the exact same object in memory — not whether the objects contain the same data. Two different `Player` objects with identical stats would not be `==` unless they were literally the same instance.
+
+This is the same distinction as Java's `==` (reference) vs `.equals()` (value). In C#, the equivalent of Java's `.equals()` is `.Equals()`. The equivalent of Java's `.hashCode()` is `.GetHashCode()`. They come from the same root — every object in both languages has these methods because every class ultimately inherits from a base object class.
+
+In C#, you can override `==` directly on a class (Java cannot do this with operators). You also need to override `GetHashCode()` whenever you override `Equals()`, for the same reason as Java: objects that are "equal" must hash to the same bucket, otherwise dictionaries and sets break.
+
+**For `string`**: C# does something convenient that Java famously does not — `==` on strings compares their contents, not their references. `"hello" == "hello"` is `true` in C# even if they are different string objects. Java requires `"hello".equals("hello")` for that.
+
+**Back to this code**: `Choice` is an enum, so it is a value type. `player == computer` is value comparison. No `Equals()` override needed. The compiler knows exactly what to do.
 
 For everything else, you need to enumerate which combinations are wins for the player:
 
