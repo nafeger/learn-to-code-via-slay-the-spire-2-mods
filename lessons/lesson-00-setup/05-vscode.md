@@ -12,9 +12,11 @@ If not, go back to [02-setup.md](02-setup.md) and do those steps now.
 
 ## Open the project
 
+You want to open your mod — the one you scaffolded in step 04, at `~/code/JacksMod` (or whatever you named it).
+
 1. Open VS Code
 2. Go to **File → Open Folder**
-3. Select your `ModTemplate` folder
+3. Navigate to `~/code/JacksMod` and select it
 
 VS Code will load the project. The C# Dev Kit will analyze the code — give it a moment to finish (you'll see a spinner in the status bar at the bottom).
 

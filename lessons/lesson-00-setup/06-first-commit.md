@@ -1,10 +1,10 @@
 # 06 — Your First Commit: Make It Yours
 
-The mod template has placeholder values in it — it says `"your-name"` where your name should go. Let's fix that, and use it as an excuse to make your first real git commit.
+The mod template has placeholder values in it — it says `"your-name"` where your name should go. Let's fix that, and use it as an excuse to make your first real git commit in your own mod repo.
 
 ## Update the manifest
 
-Open `ModTemplate.json` in VS Code — it's in the root of the `ModTemplate` folder, not inside `src/`. It looks something like this:
+Open `JacksMod.json` (or whatever you named your mod) in VS Code. It looks something like this:
 
 ```json
 {
@@ -17,6 +17,8 @@ Open `ModTemplate.json` in VS Code — it's in the root of the `ModTemplate` fol
 }
 ```
 
+This file is in the root of your `JacksMod` folder — not inside `src/`.
+
 Update it:
 - Change `"author"` to your name
 - Change `"name"` to whatever you want to call your mod
@@ -27,13 +29,13 @@ Save the file.
 
 ## See what changed
 
-In your terminal:
+In your terminal, make sure you're in your mod folder (`~/code/JacksMod`):
 
 ```bash
 git status
 ```
 
-This shows you which files have been modified. You should see `ModTemplate.json` listed.
+This shows you which files have been modified.
 
 ```bash
 git diff
@@ -44,7 +46,7 @@ This shows you exactly what changed — lines removed in red, lines added in gre
 ## Stage and commit
 
 ```bash
-git add ModTemplate.json
+git add JacksMod.json
 git commit -m "chore: update manifest with my name and mod details"
 ```
 
@@ -58,15 +60,9 @@ git push
 
 Now go to your GitHub repo in a browser. You should see your commit in the history.
 
-## A note on what you're working in
-
-Right now you're working inside your fork of `Sts2-ModSmith` — modifying the template that came with the framework. That's intentional for now. The starter content (CoinFlip, TheGoldCoinRoom, etc.) is your reference material for the next few lessons.
-
-In Lesson 4 you'll create your own standalone mod project from scratch. That's when you'll make a new GitHub repo and push your own work to it. For now, this fork is your workshop.
-
 ## Verify in game
 
-Run `dotnet publish` again, launch the game with mods enabled, and check the mod list. Your mod's name should appear — no longer "ModTemplate" but whatever you named it.
+Run `dotnet publish` from your mod folder, launch the game with mods enabled, and check the mod list. Your mod's name should appear.
 
 ---
 

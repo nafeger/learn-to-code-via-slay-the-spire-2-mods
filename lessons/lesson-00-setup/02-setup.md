@@ -36,29 +36,30 @@ Once installed, add the **C# Dev Kit** extension:
 
 ## What you cloned
 
-When you ran `git clone https://github.com/cpimhoff/Sts2-ModSmith.git` in step 01, it created a folder called `Sts2-ModSmith` wherever your terminal was. Inside that folder is the actual mod template you'll work with, called `ModTemplate`:
+When you ran `git clone https://github.com/cpimhoff/Sts2-ModSmith.git` in step 01, it created a folder called `Sts2-ModSmith` inside `~/code`. Inside that folder is a `ModTemplate` directory — this is the example project that ships with the framework:
 
 ```
-Sts2-ModSmith/
-  ModTemplate/          <-- this is your mod project
-    src/
-      StarterContent/
-        cards/
-          CoinFlip.cs
-        ...
-    project.godot
-    ModTemplate.json
-  ...
+~/code/
+  Sts2-ModSmith/
+    ModTemplate/        <-- example project (reference material)
+      src/
+        StarterContent/
+          cards/
+            CoinFlip.cs
+          ...
+      project.godot
+      ModTemplate.json
+    ...
 ```
 
-Every time the lessons refer to a file like `src/StarterContent/cards/CoinFlip.cs`, that path is relative to the `ModTemplate` folder.
+You're going to build directly from `ModTemplate` now — just to see what happens. In step 04 you'll create your own mod project that you'll work in for the rest of the lessons.
 
 ## Try to build
 
 Open a terminal, navigate into `ModTemplate`, and run:
 
 ```bash
-cd Sts2-ModSmith/ModTemplate
+cd ~/code/Sts2-ModSmith/ModTemplate
 ```
 
 Then:

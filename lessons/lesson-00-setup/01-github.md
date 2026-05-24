@@ -18,18 +18,29 @@ Go to [github.com](https://github.com) and create a free account if you don't ha
 
 Pick a username you're happy with — it'll show up publicly on your work.
 
-## Step 2 — Clone the ModSmith template
+## Step 2 — Pick a home for your projects
 
-The mod framework you'll use is called **ModSmith**. Clone the official repo to your machine:
+Before cloning anything, decide where on your machine you want code to live. A common convention is a `code` or `projects` folder in your home directory:
+
+```bash
+mkdir ~/code
+cd ~/code
+```
+
+Run your git commands from here. Everything will stay organized in one place.
+
+## Step 3 — Clone the ModSmith template
+
+The mod framework you'll use is called **ModSmith**. Clone the official repo:
 
 ```bash
 git clone https://github.com/cpimhoff/Sts2-ModSmith.git
 cd Sts2-ModSmith
 ```
 
-You should now have the project files on your machine. Take a look around — don't worry about understanding everything yet.
+You now have a folder at `~/code/Sts2-ModSmith`. This is the framework and a set of example mods — you'll read this code throughout the early lessons.
 
-## Step 3 — Verify your remote
+## Step 4 — Verify your remote
 
 Run:
 

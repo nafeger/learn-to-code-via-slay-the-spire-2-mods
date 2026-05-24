@@ -25,27 +25,30 @@ You can see that PR here:
 
 A **pull request** is how you propose a fix to someone else's open source project. You make the change in your fork and ask the maintainer to "pull" it into the official version. The fix is pending review — it hasn't been merged yet.
 
-## Vocabulary
+## Why any of this is possible: distributed version control
 
-- **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
-- **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
-- **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
-- **fork** — your own copy of someone else's repo. `nafeger/Sts2-ModSmith` is a fork of `cpimhoff/Sts2-ModSmith` with these fixes applied.
+Git is a **distributed** version control system. That word matters.
 
-## Fork the fixed version and rebuild
+In a centralized system, there's one server and everyone connects to it. If that server has bad code, you're stuck.
 
-The official repo doesn't have the fix yet. Fork the version that does:
+In a distributed system, every clone is a complete copy of the repo — full history and all. There's no single source of truth that everyone must obey. `cpimhoff/Sts2-ModSmith` and `nafeger/Sts2-ModSmith` are both complete, valid copies of the same repo at different points in time. Your local clone is too.
 
-1. Go to [https://github.com/nafeger/Sts2-ModSmith](https://github.com/nafeger/Sts2-ModSmith)
-2. Click **Fork** and create it under your account
-3. Back in your terminal, update your local repo to point at your new fork:
+This means you can point your local repo at *any* compatible remote and pull from it. Remotes are just URLs — they're not special. You can change where `origin` points, add new remotes, pull from one and push to another. The code on your machine doesn't care which server it came from.
+
+That's what makes open source work at scale. Someone finds a bug, fixes it in their copy, and anyone can pull that fix immediately — without waiting for the original maintainer to merge it.
+
+## Switch to the fixed version and rebuild
+
+You already have the repo cloned. Just tell git to pull from the version that has the fix:
 
 ```bash
-git remote set-url origin https://github.com/YOUR-USERNAME/Sts2-ModSmith.git
+git remote set-url origin https://github.com/nafeger/Sts2-ModSmith.git
 git pull
 ```
 
-Now run `dotnet build` again from the `ModTemplate` folder:
+The first command changes where `origin` points. The second pulls down the updated code. Your local history stays intact — git figures out what changed and applies it.
+
+Now build again from the `ModTemplate` folder:
 
 ```bash
 dotnet build
@@ -53,11 +56,72 @@ dotnet build
 
 This time it should succeed.
 
+## Install the fixed template and scaffold your own mod
+
+The ModSmith template is a `dotnet new` template — a blueprint for creating new mod projects. Now that you have the fixed version locally, install it:
+
+```bash
+cd ~/code/Sts2-ModSmith
+dotnet new install ./ModTemplate --force
+```
+
+Then scaffold your own mod project. Go back to your `~/code` folder and create it there:
+
+```bash
+cd ~/code
+dotnet new modsmith-mod -n JacksMod --StarterContent
+```
+
+Replace `JacksMod` with whatever you want to call your mod. The `--StarterContent` flag includes example code (CoinFlip, GoldArmor, etc.) that you'll read and modify in the lessons ahead.
+
+Build it to confirm it works:
+
+```bash
+cd JacksMod
+dotnet build
+```
+
+This is your mod. It lives at `~/code/JacksMod`, separate from the ModSmith framework. The ModSmith clone in `~/code/Sts2-ModSmith` is now just reference material — you won't edit it directly again.
+
+## Create a GitHub repo for your mod
+
+Your mod needs its own home on GitHub.
+
+1. Go to [github.com/new](https://github.com/new)
+2. Name it `JacksMod` (or whatever you chose above)
+3. Set it to **Public**
+4. Do **not** check "Add a README file" — your project already has one
+5. Click **Create repository**
+
+GitHub will show you instructions for pushing an existing repo. Run those — they'll look like:
+
+```bash
+git init
+git add .
+git commit -m "chore: initial mod scaffold"
+git branch -M main
+git remote add origin https://github.com/YOUR-USERNAME/JacksMod.git
+git push -u origin main
+```
+
+Now your mod is on GitHub and everything you build from here lives there.
+
+## Vocabulary
+
+- **API (Application Programming Interface)** — the set of methods and types a library exposes for you to use. When the game updates its API, code written against the old version can break.
+- **pull request (PR)** — a proposal to merge changes from one branch or fork into another. Standard practice in open source.
+- **open source** — software whose source code is publicly available. Anyone can read it, report bugs, or contribute fixes.
+- **distributed version control** — a system where every clone is a complete copy of the repo, not just a connection to a central server. Git is distributed; older systems like SVN were centralized.
+- **remote** — a named URL that git knows about. `origin` is just the conventional name for the default one.
+- **template** — a blueprint for generating new projects. `dotnet new modsmith-mod` uses the ModSmith template to scaffold a working mod skeleton.
+
 ## Things to look up
 
 - "what is an API in programming"
 - "what is open source software"
 - "how does a github pull request work"
+- "git distributed vs centralized version control"
+- "dotnet new template explained"
 
 ---
 
