@@ -6,21 +6,23 @@ Two exercises. Do both.
 
 ## Exercise A: SumCards
 
-Write a method that takes a list of card costs and returns the total.
+Create a new file called `src/Scratch.cs` in your `JacksMod` project and write a method that takes a list of card costs and returns the total. (You can delete this file after — it's a scratchpad.)
 
 ```csharp
-int SumCards(List<int> costs)
+namespace JacksMod;  // replace with your mod's name
+
+public static class Scratch
 {
-    // your code here
+    public static int SumCards(List<int> costs)
+    {
+        // your code here
+    }
 }
 ```
 
-Test it with:
+Test it by calling it from your mod's `Initialize` method temporarily, or just trace through it by hand.
 
-```csharp
-List<int> hand = new List<int> { 1, 2, 0, 3, 1 };
-Console.WriteLine(SumCards(hand));  // should print 7
-```
+Expected result with `{ 1, 2, 0, 3, 1 }` → `7`.
 
 **Step 1**: Write it using a `for` loop with an index.
 

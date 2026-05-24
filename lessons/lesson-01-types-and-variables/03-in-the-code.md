@@ -1,6 +1,6 @@
 # 03 — Types in the Mod Code
 
-Open `src/StarterContent/cards/CoinFlip.cs` in VS Code. This file is inside the `ModTemplate` folder of your `Sts2-ModSmith` clone — the same VS Code window you had open at the end of Lesson 0.
+Open `src/StarterContent/cards/CoinFlip.cs` in VS Code. This file is inside your `JacksMod` project — the same VS Code window you had open at the end of Lesson 0.
 
 You're going to read this file looking specifically for types and variables. Don't worry about understanding every line yet — focus only on what you recognize from the last two files.
 

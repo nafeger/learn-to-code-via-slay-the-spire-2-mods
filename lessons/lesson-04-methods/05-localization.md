@@ -22,11 +22,7 @@ This path is relative to the mod project root. The `eng` folder holds English st
 
 ## The events.json file
 
-This file has already been created for the Rock Paper Scissors event at:
-
-`/Volumes/DevSSD/gascity/nate-land/rigs/learn_sts2_modding/FirstSpireMod/localization/eng/events.json`
-
-Its contents:
+This file has already been created for the Rock Paper Scissors event at `localization/eng/events.json` in your `JacksMod` project. Its contents:
 
 ```json
 {

@@ -2,6 +2,8 @@
 
 You just ran `dotnet build` and it failed. That's normal. Broken builds happen to every developer, every day. The skill isn't avoiding them — it's reading them.
 
+**Note:** This is your only chance to observe this bug in the wild — once you apply the fix in the next step, the errors are gone. Take a moment to read the output carefully before moving on.
+
 ## What you should have seen
 
 The build output should contain errors that look roughly like this:
