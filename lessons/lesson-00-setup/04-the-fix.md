@@ -76,12 +76,16 @@ dotnet new modsmith-mod -n JacksMod --StarterContent
 
 Replace `JacksMod` with whatever you want to call your mod. The `--StarterContent` flag includes example code (CoinFlip, GoldArmor, etc.) that you'll read and modify in the lessons ahead.
 
-Build it to confirm it works:
+Build and install it to the game:
 
 ```bash
 cd JacksMod
-dotnet build
+dotnet publish
 ```
+
+`dotnet build` only compiles your code and checks for errors. `dotnet publish` does that **and** copies the mod DLL into the game's mods folder so the game can actually load it. Use `dotnet publish` whenever you want to test something in the game.
+
+Now launch Slay the Spire 2 with mods enabled and open the mod list. You should see your mod's name in there. That's it — your mod is running.
 
 This is your mod. It lives at `~/code/JacksMod`, separate from the ModSmith framework. The ModSmith clone in `~/code/Sts2-ModSmith` is now just reference material — you won't edit it directly again.
 

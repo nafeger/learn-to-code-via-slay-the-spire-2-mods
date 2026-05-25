@@ -33,13 +33,12 @@ A **breakpoint** tells the debugger "pause execution here so I can inspect what'
 
 The game runs as a separate process. To debug your mod, you attach VS Code to the running game.
 
-1. Run `dotnet publish` from the terminal in your `JacksMod` folder to build and copy your mod to the game
-2. Launch Slay the Spire 2 with mods enabled
-3. In VS Code, open the **Run and Debug** panel (left sidebar, or `Cmd+Shift+D` / `Ctrl+Shift+D`)
-4. Click **"create a launch.json file"** if prompted, and select **.NET**
-5. From the dropdown at the top, select **".NET: Attach to process"**
-6. Click the green play button
-7. Search for "Slay the Spire" in the process list and select it
+1. Launch Slay the Spire 2 with mods enabled (you already ran `dotnet publish` in step 04, so the mod is installed)
+2. In VS Code, open the **Run and Debug** panel (left sidebar, or `Cmd+Shift+D` / `Ctrl+Shift+D`)
+3. Click **"create a launch.json file"** if prompted, and select **.NET**
+4. From the dropdown at the top, select **".NET: Attach to process"**
+5. Click the green play button
+6. Search for "Slay the Spire" in the process list and select it
 
 When the game loads your mod, it will hit the breakpoint and pause. VS Code will show you exactly where execution stopped.
 

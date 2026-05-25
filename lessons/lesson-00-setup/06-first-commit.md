@@ -62,7 +62,13 @@ Now go to your GitHub repo in a browser. You should see your commit in the histo
 
 ## Verify in game
 
-Run `dotnet publish` from your mod folder, launch the game with mods enabled, and check the mod list. Your mod's name should appear.
+You changed the manifest, so re-publish to pick up the change:
+
+```bash
+dotnet publish
+```
+
+Launch the game and check the mod list. Your mod's updated name should appear.
 
 ---
 
