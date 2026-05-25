@@ -65,6 +65,8 @@ cd ~/code/Sts2-ModSmith
 dotnet new install ./ModTemplate --force
 ```
 
+> **Note:** The official ModSmith docs say to run `dotnet new install ModSmith.Templates` (from the public NuGet package). Do not do that here — the NuGet package has the same bugs you just saw. You are installing from your local fixed clone instead.
+
 Then scaffold your own mod project. Go back to your `~/code` folder and create it there:
 
 ```bash

@@ -6,12 +6,13 @@ The ModSmith project has an official guided setup that covers everything you nee
 
 👉 [https://cpimhoff.github.io/Sts2-ModSmith/docs/setup/guided.html](https://cpimhoff.github.io/Sts2-ModSmith/docs/setup/guided.html)
 
-Work through that guide completely. It covers:
+Work through the guide **up to and including** the "Configuring your Steam library path" section. It covers:
 
 - Installing the .NET SDK
 - Installing MegaDot (the Godot editor used by STS2)
 - Configuring your Steam library path
-- Opening the project
+
+> **Stop before "Install ModSmith" and "Initializing your mod from the template."** Those sections tell you to run `dotnet new install ModSmith.Templates` and `dotnet new modsmith-mod`. Do not do that yet — the template on NuGet has bugs you will see firsthand in the next step, and step 04 walks you through installing a fixed version instead.
 
 ### .NET version note
 
