@@ -43,10 +43,11 @@ You already have the repo cloned. Just tell git to pull from the version that ha
 
 ```bash
 git remote set-url origin https://github.com/nafeger/Sts2-ModSmith.git
-git pull
+git fetch
+git checkout beta
 ```
 
-The first command changes where `origin` points. The second pulls down the updated code. Your local history stays intact — git figures out what changed and applies it.
+The first command changes where `origin` points. `git fetch` downloads all branches from the new remote. `git checkout beta` switches to the branch that has fixes for the current public beta version of the game.
 
 Now build again from the `ModTemplate` folder:
 
