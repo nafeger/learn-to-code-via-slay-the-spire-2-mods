@@ -181,15 +181,15 @@ private async Task Play(Choice playerChoice)
         if (outcome == Outcome.Win)
         {
             await PlayerCmd.GainGold(WIN_GOLD, player);
-            SetEventFinished(L10NLookup("RPS.pages.WIN.description"));
+            SetEventFinished(L10NLookup("ROCK_PAPER_SCISSORS.pages.WIN.description"));
         }
         else if (outcome == Outcome.Lose)
         {
-            SetEventFinished(L10NLookup("RPS.pages.LOSE.description"));
+            SetEventFinished(L10NLookup("ROCK_PAPER_SCISSORS.pages.LOSE.description"));
         }
         else
         {
-            SetEventState(L10NLookup("RPS.pages.DRAW.description"), GenerateInitialOptions());
+            SetEventState(L10NLookup("ROCK_PAPER_SCISSORS.pages.DRAW.description"), GenerateInitialOptions());
         }
     }
 }
