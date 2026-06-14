@@ -19,12 +19,24 @@ The curriculum is designed for someone who has seen a little code before (Scratc
 | [Lesson 2](lessons/lesson-02-control-flow/) | Control Flow | Weighted coin flip card |
 | [Lesson 3](lessons/lesson-03-loops-and-recursion/) | Loops & Recursion | Rock Paper Scissors, single round |
 | [Lesson 4](lessons/lesson-04-methods/) | Methods | RPS best-of-3 event room |
-| [Lesson 5](lessons/lesson-05-classes-and-objects/) | Classes & Objects | What IS a card? |
-| [Lesson 6](lessons/lesson-06-collections/) | Collections | Model a deck with real data structures |
-| [Lesson 7](lessons/lesson-07-interfaces-and-inheritance/) | Interfaces & Inheritance | Why the mod framework works the way it does |
+| [Lesson 5](lessons/lesson-05-classes-and-objects/) | Classes & Objects | Best-of-three RPS with a scoreboard object |
+| [Lesson 6](lessons/lesson-06-collections/) | Collections | An opponent that remembers and counters your throws |
+| [Lesson 7](lessons/lesson-07-interfaces-and-inheritance/) | Interfaces & Inheritance | Swappable opponents; why the mod framework works the way it does |
 | [Lesson 8](lessons/lesson-08-debugging/) | Debugging | Break things on purpose, fix them with VS Code |
 | [Lesson 9](lessons/lesson-09-probability-and-randomness/) | Probability & Randomness | Expected value, the math behind the game's RNG |
 | [Lesson 10](lessons/lesson-10-capstone/) | Capstone | Design and ship your own card from scratch |
+
+## Reference
+
+[**MODDING.md**](MODDING.md) — a map of what a Slay the Spire 2 mod can add (cards, relics,
+powers, potions, events, and more), the four-step pattern every piece of content follows,
+and the conventions that trip up new modders. Lessons 5–7 build toward it; read it once
+Lesson 7 makes it click.
+
+[**examples/rps-logic/**](examples/rps-logic/) — the framework-independent code from Lessons
+5–7 (the scoreboard and the opponents) as a runnable console app, so it is verified rather
+than just printed. `dotnet run --project examples/rps-logic` plays a match and confirms the
+adaptive opponent really does counter a predictable player.
 
 ## Licenses
 

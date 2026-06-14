@@ -145,7 +145,7 @@ Inside any method, the keyword `this` refers to the current instance of the clas
 You can see it in `GenerateInitialOptions`:
 
 ```csharp
-new EventOption(this, () => Play(Choice.Rock), "RPS.options.ROCK")
+new EventOption(this, () => Play(Choice.Rock), "ROCK_PAPER_SCISSORS.options.ROCK")
 ```
 
 `this` is passed as the first argument to `EventOption`. It tells the option: the event that owns you is this one.

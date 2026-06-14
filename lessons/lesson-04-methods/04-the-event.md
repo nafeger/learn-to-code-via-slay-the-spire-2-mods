@@ -29,9 +29,9 @@ public sealed class RockPaperScissors : ModSmithEventModel
     protected override IReadOnlyList<EventOption> GenerateInitialOptions()
     {
         return [
-            new EventOption(this, () => Play(Choice.Rock),     "RPS.options.ROCK"),
-            new EventOption(this, () => Play(Choice.Paper),    "RPS.options.PAPER"),
-            new EventOption(this, () => Play(Choice.Scissors), "RPS.options.SCISSORS"),
+            new EventOption(this, () => Play(Choice.Rock),     "ROCK_PAPER_SCISSORS.options.ROCK"),
+            new EventOption(this, () => Play(Choice.Paper),    "ROCK_PAPER_SCISSORS.options.PAPER"),
+            new EventOption(this, () => Play(Choice.Scissors), "ROCK_PAPER_SCISSORS.options.SCISSORS"),
         ];
     }
 
@@ -45,15 +45,15 @@ public sealed class RockPaperScissors : ModSmithEventModel
             if (outcome == Outcome.Win)
             {
                 await PlayerCmd.GainGold(WIN_GOLD, player);
-                SetEventFinished(L10NLookup("RPS.pages.WIN.description"));
+                SetEventFinished(L10NLookup("ROCK_PAPER_SCISSORS.pages.WIN.description"));
             }
             else if (outcome == Outcome.Lose)
             {
-                SetEventFinished(L10NLookup("RPS.pages.LOSE.description"));
+                SetEventFinished(L10NLookup("ROCK_PAPER_SCISSORS.pages.LOSE.description"));
             }
             else
             {
-                SetEventState(L10NLookup("RPS.pages.DRAW.description"), GenerateInitialOptions());
+                SetEventState(L10NLookup("ROCK_PAPER_SCISSORS.pages.DRAW.description"), GenerateInitialOptions());
             }
         }
     }
@@ -108,14 +108,16 @@ private const int WIN_GOLD = 50;
 protected override IReadOnlyList<EventOption> GenerateInitialOptions()
 {
     return [
-        new EventOption(this, () => Play(Choice.Rock),     "RPS.options.ROCK"),
-        new EventOption(this, () => Play(Choice.Paper),    "RPS.options.PAPER"),
-        new EventOption(this, () => Play(Choice.Scissors), "RPS.options.SCISSORS"),
+        new EventOption(this, () => Play(Choice.Rock),     "ROCK_PAPER_SCISSORS.options.ROCK"),
+        new EventOption(this, () => Play(Choice.Paper),    "ROCK_PAPER_SCISSORS.options.PAPER"),
+        new EventOption(this, () => Play(Choice.Scissors), "ROCK_PAPER_SCISSORS.options.SCISSORS"),
     ];
 }
 ```
 
 `EventOption` takes three arguments: the event it belongs to (`this`), a callback to run when the option is chosen, and a localization key for the button text.
+
+> **Why `ROCK_PAPER_SCISSORS` and not `RPS`?** The first segment of every localization key has to match your class name, converted to SCREAMING_SNAKE_CASE — so `RockPaperScissors` becomes `ROCK_PAPER_SCISSORS`, exactly the way `TheGoldCoinRoom` becomes `THE_GOLD_COIN_ROOM`. If you used `RPS.options.ROCK`, the game would never find the text. This is a rule the framework enforces, and Lesson 7 explains exactly why it works that way. For now, just match the prefix to the class name.
 
 The callbacks are **lambdas**: `() => Play(Choice.Rock)`. A lambda is an anonymous function — a small block of code without a name, defined inline. The `()` is an empty parameter list, and `=> Play(Choice.Rock)` is the body: call `Play` with `Choice.Rock`.
 
@@ -173,9 +175,11 @@ If you want to see it immediately:
 
 ## About the button text
 
-When you encounter the event, the button text will show the localization key name instead of the real text. For example, the Rock button will say something like `RPS.options.ROCK` rather than `Rock`.
+When you encounter the event, the button text will show the localization key name instead of the real text. For example, the Rock button will say something like `ROCK_PAPER_SCISSORS.options.ROCK` rather than `Rock`.
 
-This is expected. The game reads display text from localization data bundled into the game's PCK file. The localization JSON file you will create in chapter 05 exists in the project, but it will not be loaded by the game until the mod is packaged with PCK export — an advanced build step covered later.
+Seeing the key on screen is actually useful: it tells you the exact string the game tried to look up and failed to find. If that key ever reads `RPS.options.ROCK`, you have a naming bug — the prefix does not match the class name. If it reads `ROCK_PAPER_SCISSORS.options.ROCK`, the key is correct and the only thing missing is the packaged text.
+
+The game reads display text from localization data bundled into the game's PCK file. The localization JSON file you will create in chapter 05 exists in the project, but it will not be loaded by the game until the mod is packaged with PCK export — an advanced build step covered later. So even with correct keys, you will see the key names until the text is packaged. That is expected.
 
 The event is fully functional. The text being placeholder keys does not affect the logic. You can play through it, win gold, lose, and draw — it all works.
 
