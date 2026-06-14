@@ -33,6 +33,11 @@ powers, potions, events, and more), the four-step pattern every piece of content
 and the conventions that trip up new modders. Lessons 5–7 build toward it; read it once
 Lesson 7 makes it click.
 
+[**examples/rps-logic/**](examples/rps-logic/) — the framework-independent code from Lessons
+5–7 (the scoreboard and the opponents) as a runnable console app, so it is verified rather
+than just printed. `dotnet run --project examples/rps-logic` plays a match and confirms the
+adaptive opponent really does counter a predictable player.
+
 ## Licenses
 
 The **code** in this repository is licensed under the [MIT License](LICENSE-CODE).

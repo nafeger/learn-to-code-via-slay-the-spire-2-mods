@@ -74,6 +74,7 @@ memory. Create `AdaptiveOpponent.cs`:
 
 ```csharp
 using System.Collections.Generic;
+using MegaCrit.Sts2.Core.Random;
 
 namespace JacksMod;
 
@@ -130,10 +131,12 @@ them from `RandomOpponent` and calls them directly. The only things it adds are 
 (`recentThrows`, `Remember`) and the smarter `Pick`. Inheritance let the adaptive opponent
 say "I am a random opponent, except I pick using a memory" — and reuse everything else.
 
-Notice `Rng.Chaotic.NextBool()` is reachable here even though it is not declared in either
-class — it is the global RNG utility, available anywhere with the
-`using MegaCrit.Sts2.Core.Random;` directive (which `RandomOpponent.cs` already has, in the
-same namespace and assembly).
+Notice the **two** `using` lines. `using` directives are per-file — a `using` in
+`RandomOpponent.cs` does *not* carry over to `AdaptiveOpponent.cs`, even though both classes
+live in the same namespace. Because `AdaptiveOpponent.Pick` calls `Rng.Chaotic.NextBool()`
+directly, this file needs its own `using MegaCrit.Sts2.Core.Random;`. Forget it and the
+compiler will tell you `Rng` does not exist — a small, common mistake, and a good reminder
+that each file declares its own imports.
 
 ## The one-line swap
 
