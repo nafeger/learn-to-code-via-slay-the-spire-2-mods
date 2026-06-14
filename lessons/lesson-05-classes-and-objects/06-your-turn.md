@@ -1,6 +1,6 @@
-# 05 — Your Turn
+# 06 — Your Turn
 
-Three exercises. Do the first two; the third is optional.
+Four exercises. Do A, B, and D; C is optional.
 
 ---
 
@@ -71,6 +71,33 @@ new little object.
 If you do wire it in, have `Play` create a `RoundResult` each round and use its `Describe()`
 in the `SetEventState` text instead of the bare score — so the player sees what just
 happened, not only the tally.
+
+---
+
+## Exercise D: Place the name
+
+This one checks chapter 05. For each line below, say whether the bolded part is reached as an
+**instance member**, a **static member**, or names a **namespace** — and how you can tell.
+Answer in a comment or a note.
+
+1. `await **PlayerCmd.GainGold**(WIN_GOLD, player);`
+2. `**opponent.Pick**();`
+3. `using **MegaCrit.Sts2.Core.Random**;`
+4. `**scoreboard.Record**(outcome);`
+5. `**Registry.RegisterEvent**<RockPaperScissors>();`
+
+Then answer in your own words:
+
+6. Your `RpsOpponent` calls `Rng.Chaotic.NextBool()` and never writes `new Rng()`. What does
+   that tell you about `Rng.Chaotic`?
+7. `StarterContent` is a `static class`. Why does that mean you call
+   `StarterContent.RegisterStarterContent()` without creating an object first?
+8. Could `Scoreboard` be a `static class` instead of a regular one? What would you lose the
+   moment a player could be in two matches? (Tie this back to why the scoreboard is an
+   instance.)
+9. The `Choice` enum lives in `namespace JacksMod;`. A class in a *different* namespace wants
+   to use `Choice`. What one line does it need to add, and why do your mod's classes not need
+   it?
 
 ---
 

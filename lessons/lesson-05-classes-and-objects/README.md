@@ -12,6 +12,11 @@ The payoff: Rock Paper Scissors becomes a **best-of-three match** with a running
 **scoreboard**. To make that work, the game needs to *remember* the score across rounds —
 and "an object that remembers things" is exactly what a class is for.
 
+Once you have built objects, the lesson zooms out to the two things that are *not* per-object:
+the `static` keyword (code that belongs to the type, not any instance) and `namespace` (the
+named container all your types live in). You have been typing both since Lesson 3 without an
+explanation; here is where they get one.
+
 ## What you will learn
 
 - The difference between a class (the blueprint) and an object (an instance)
@@ -21,6 +26,9 @@ and "an object that remembers things" is exactly what a class is for.
 - What `this` refers to
 - Why bundling state and behavior together (encapsulation) is the whole point
 - When a type should move *out* of one class so others can share it
+- The difference between an instance member and a `static` member (one shared by the type)
+- What a `static class` is and why `JacksModMain` and `StarterContent` are static
+- What a `namespace` is, why every file declares one, and what `using` actually does
 
 ## Success criteria
 
@@ -31,6 +39,8 @@ You are done with this lesson when you can:
 - [ ] Explain why the scoreboard has to be a *field* on the event, not a local variable
 - [ ] Build the `Scoreboard` class and the `RpsOpponent` class
 - [ ] Make Rock Paper Scissors a best-of-three match and see the score persist across rounds in game
+- [ ] Tell an instance member from a static member by how it is called, and say why the scoreboard is an instance and not static
+- [ ] Explain what `namespace JacksMod;` and a `using` directive do
 
 ## Files
 
@@ -38,7 +48,8 @@ You are done with this lesson when you can:
 2. [02-fields-constructors-this.md](02-fields-constructors-this.md) — State, setup, and `this`
 3. [03-building-the-scoreboard.md](03-building-the-scoreboard.md) — Your first class from scratch
 4. [04-the-opponent-as-an-object.md](04-the-opponent-as-an-object.md) — Extract the opponent; wire up best-of-three
-5. [05-your-turn.md](05-your-turn.md) — Exercises
+5. [05-static-and-namespaces.md](05-static-and-namespaces.md) — The two things that are *not* per-object: `static` and namespaces
+6. [06-your-turn.md](06-your-turn.md) — Exercises
 
 ## Connection to the mod
 

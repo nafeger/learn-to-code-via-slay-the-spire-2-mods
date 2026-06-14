@@ -40,9 +40,11 @@ public enum Outcome { Win, Lose, Draw }
 ```
 
 They were `private` and nested; now they are `public` and live at the namespace level.
-Delete the two nested `enum` lines from `RockPaperScissors`. Nothing else about the event
-changes — `Choice.Rock` and `Outcome.Win` still mean the same thing; they just live
-somewhere both the event and the new classes can reach.
+("Namespace" is the `namespace JacksMod;` line at the top of every file — chapter 05 explains
+it fully. For now, read it as "the shared space all your mod's types live in.") Delete the two
+nested `enum` lines from `RockPaperScissors`. Nothing else about the event changes —
+`Choice.Rock` and `Outcome.Win` still mean the same thing; they just live somewhere both the
+event and the new classes can reach.
 
 > This is a recurring pattern: a type starts life owned by one class, then a second class
 > needs it, so it graduates to a shared location. Moving it is the right response, not a
