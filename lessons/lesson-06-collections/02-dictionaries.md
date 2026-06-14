@@ -40,6 +40,48 @@ if (counts.ContainsKey(Choice.Scissors))
 Reading a key that is not in the dictionary crashes, the same way an out-of-range list
 index does. `ContainsKey` is how you ask first.
 
+## Why it is fast: a word on Big-O
+
+That phrase from a moment ago — "look something up by its key, fast, *without scanning the
+whole thing*" — is the whole reason dictionaries exist. It is worth making precise, because it
+introduces a way of thinking about cost that you will use for the rest of your programming life.
+
+Suppose you only had a `List` and wanted to find how many times Rock appears. You would have to
+walk *every* item:
+
+```csharp
+int rockCount = 0;
+foreach (Choice c in throws)        // visits all N items
+{
+    if (c == Choice.Rock) rockCount++;
+}
+```
+
+If the list has 10 items, that is 10 steps. If it has 10,000, it is 10,000 steps. The work
+grows **in proportion to the size of the list**. Computer scientists write this as **O(n)** —
+read "oh of n" — where `n` is the number of items. It is not a measurement in seconds; it is a
+description of how the cost *scales* as the data grows. O(n) means "double the data, double the
+work."
+
+A dictionary lookup is different. `counts[Choice.Rock]` jumps more or less straight to the
+answer without checking the other entries — whether the dictionary holds 10 keys or 10,000,
+it takes roughly the same number of steps. That is written **O(1)** — "constant time" — meaning
+the cost does not grow with the size of the collection. (It works by computing a number from the
+key, the *hash*, that points near where the value is stored. "C# hash code" is the thing to look
+up when you want the mechanism.)
+
+| Operation | Collection | Cost | Meaning |
+|-----------|-----------|------|---------|
+| Find a value by scanning | `List` | O(n) | grows with the number of items |
+| Look up a value by key | `Dictionary` | O(1) | flat, regardless of size |
+
+This is the trade you are making when you reach for a dictionary: you give up order (a
+dictionary is not a sequence) and you spend a little more memory, and in exchange a lookup stays
+fast no matter how big it gets. You do not need to memorize Big-O notation now — but you do want
+the instinct behind it: *"am I scanning everything, or jumping straight to it?"* That question,
+asked early, is the difference between a feature that stays fast and one that crawls once real
+data shows up.
+
 ## You already know a dictionary: localization
 
 You have been using a dictionary since Lesson 4 without the name. The localization file is
@@ -161,8 +203,14 @@ in a dictionary.
 
 **`var`** — Lets the compiler infer a variable's type from its initializer.
 
+**Big-O notation** — A description of how an operation's cost scales with the size of the
+data. **O(n)** grows in proportion to the number of items (scanning a list); **O(1)** stays
+flat regardless of size (a dictionary lookup).
+
 ## Things to look up
 
 - "C# Dictionary" — `TryGetValue`, which combines the check-and-read in one step
 - "C# var keyword" — when type inference helps readability and when it hurts it
 - "C# KeyValuePair" — the type each dictionary `pair` actually is
+- "Big-O notation" — the broader idea, including O(n log n) and O(n²) you will meet later
+- "C# hash code" — how a dictionary turns a key into a near-instant lookup

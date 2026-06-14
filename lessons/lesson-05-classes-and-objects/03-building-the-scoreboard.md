@@ -114,6 +114,32 @@ count an outcome maps to. Because the fields are private, no other code can incr
 point for someone — you change `Record` and nowhere else. That is encapsulation paying off:
 one class owns its data and the rules for changing it.
 
+## Where does the scoreboard live?
+
+A fair question to ask of any state: where does it actually *live*, and what happens to it
+later? For this `Scoreboard`, the answer is **in memory** — the object exists in your
+computer's RAM while the event is open, and when the run ends, it is gone. That is exactly
+right here: a single match's score has no reason to outlive the match.
+
+But "where does state live?" is a real spectrum, and the rungs are worth naming because you
+will climb them in bigger programs:
+
+- **In memory** (what you have) — fast, simple, and gone when the program stops. Right for
+  transient things like one match's score.
+- **In a file** — written to disk so it survives a restart. The game's own save system works
+  this way, and so does the localization JSON you met in Lesson 4.
+- **In a database** — a structured store built for large amounts of data that many readers
+  query and search. Overkill for a scoreboard; the right tool once you have thousands of
+  records you need to look things up in.
+
+The mechanism is always the same shape: an object holds the *live* state in memory, and
+"saving" means **copying that state out** to a file or database, then **reading it back** to
+rebuild the object later. (Turning an object into bytes you can store is called
+*serialization* — a "things to look up" for when you need it.) This curriculum stays in
+memory; durable persistence is its own large topic. The habit to carry forward is the
+question itself: when you build state, ask *"does this need to outlive the program — and if
+so, where will it live?"*
+
 ## Trace it by hand
 
 Before wiring it in, confirm you understand it. Walk a best-of-three where the player wins,
@@ -146,3 +172,4 @@ inline.
 - "C# string interpolation" — formatting numbers, alignment, the full syntax
 - "C# expression-bodied members" — where `=>` is allowed
 - "C# enum" — review from Lesson 4, now that enums live at namespace scope
+- "C# serialization" — turning an object into bytes you can save to a file or database

@@ -49,9 +49,13 @@ This is the old method in a new home, with **one change**: the Lesson 4 version 
 the bare `Rng.NextBool()`, and here it is `Rng.Chaotic.NextBool()`. That change is forced,
 not cosmetic — see the note below. Otherwise the logic is identical: `Pick()` still has the
 same Rock-50% / Paper-25% / Scissors-25% bias you analyzed in Lesson 4 — still good enough
-for now, and Lesson 9 still owns proper uniform randomness. The point is not new behavior;
-it is that the opponent is now a *thing* with a clear place to keep state. In Lesson 6, that
-empty class body fills up with a memory.
+for now. (If that lopsided shape bugs you, you have the right instinct: chaining two coin
+flips is not the natural way to pick one of three things. The cleaner approach is to draw a
+*single* random number and map it onto the three choices — that is what Lesson 9 does, along
+with why even that has a subtle trap. We keep the coin-flip version here only because it uses
+nothing you have not already seen.) The point is not new behavior; it is that the opponent is
+now a *thing* with a clear place to keep state. In Lesson 6, that empty class body fills up
+with a memory.
 
 > **Why `Rng.NextBool()` became `Rng.Chaotic.NextBool()`** — in Lesson 4, `PickComputerChoice`
 > lived *inside the event*, and the bare `Rng` was a convenience the `ModSmithEventModel` base

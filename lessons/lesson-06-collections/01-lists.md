@@ -30,6 +30,14 @@ works for any element type, and you pick the type per list. This is the same `<T
 have seen on `IEnumerable<DynamicVar>` and `IReadOnlyList<EventOption>` in the mod code.
 Those are collection types too.
 
+> The leading `I` on `IEnumerable` and `IReadOnlyList` marks them as **interfaces** — a
+> *contract* a type promises to fulfil, as opposed to a concrete class like `List` you build
+> with `new`. Interfaces (and how `List` relates to them) are the whole subject of Lesson 7;
+> you do not need them yet. For now, read `IReadOnlyList<EventOption>` as "something that
+> behaves like a read-only list of options," and keep moving. The distinction between a
+> *contract*, a class that *implements* it, and an *instance* of that class is exactly what
+> Lesson 7 untangles.
+
 You can use the `new()` shorthand from Lesson 5 here as well:
 
 ```csharp
@@ -92,6 +100,40 @@ index; it walks the whole list in order. When you need the position too, a `for`
 `throws[i]` is the alternative — but for "do something with every item," `foreach` is
 cleaner and harder to get wrong.
 
+## The functional alternative
+
+If you have seen JavaScript's `array.forEach(...)` or Ruby's `each`, you are looking for the
+same thing in C#. There are two flavors.
+
+A `List<T>` has its own `ForEach` method that takes a **lambda** (the `() =>` syntax from
+Lesson 4 — here it takes the item as a parameter):
+
+```csharp
+throws.ForEach(c => DoSomethingWith(c));
+```
+
+That is the direct `forEach` analog. But C#'s real functional toolkit is **LINQ** — a set of
+methods that *describe what you want* instead of *how to loop for it*. Instead of writing a
+loop to count or find, you call a method:
+
+```csharp
+using System.Linq;   // LINQ lives here
+
+int rockCount = throws.Count(c => c == Choice.Rock);   // how many Rocks?
+Choice newest  = throws.Last();                        // the last item — no index math
+bool anyPaper  = throws.Any(c => c == Choice.Paper);   // is there a Paper at all?
+```
+
+Each reads almost like English: "count the ones that are Rock," "the last one," "any Paper?"
+LINQ is declarative — you say the *what*, and it runs the loop for you.
+
+Which to use? A plain `foreach` is clearest when you are doing several things per item or the
+logic is involved. LINQ shines for the one-liners — counting, filtering, finding, transforming
+— where a loop would be more ceremony than substance. You will see LINQ again in this lesson's
+"things to look up," and it is worth learning well once you are comfortable with loops. For
+now, know that both styles exist and produce the same results; the loop is never *wrong*, just
+sometimes wordier.
+
 ## A worked example: the most recent throw
 
 Suppose you want the most recent throw in the list — the last one added. It is at index
@@ -115,6 +157,11 @@ if (throws.Count > 0)
     Choice mostRecent = throws[throws.Count - 1];
 }
 ```
+
+The functional style sidesteps the index math entirely: `throws.Last()` gives the same value,
+and `throws.LastOrDefault()` returns a default instead of crashing on an empty list — the
+guard built in. The index version is shown here because it teaches what "last" *means*
+(position `Count - 1`); reach for `.Last()` once that clicks.
 
 ## Lists in the mod code you already have
 
@@ -150,3 +197,5 @@ is the generic `List` specialized to hold `Choice` values.
 - "C# List<T>" — the full set of methods (`Insert`, `Contains`, `Clear`, and more)
 - "C# generics" — what `<T>` means and why it matters
 - "off by one error" — the classic bug that lives at list boundaries
+- "C# LINQ" — the functional toolkit (`Where`, `Select`, `Count`, `Any`, `Last`, `Sum`)
+- "C# List ForEach vs foreach" — the method, the statement, and when each fits
