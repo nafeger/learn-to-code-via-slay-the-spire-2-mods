@@ -10,8 +10,8 @@ In Lesson 4, the computer's choice came from a method on the event:
 ```csharp
 private Choice PickComputerChoice()
 {
-    if (Rng.Chaotic.NextBool()) return Choice.Rock;
-    if (Rng.Chaotic.NextBool()) return Choice.Paper;
+    if (Rng.NextBool()) return Choice.Rock;
+    if (Rng.NextBool()) return Choice.Paper;
     return Choice.Scissors;
 }
 ```
@@ -45,16 +45,22 @@ public class RpsOpponent
 }
 ```
 
-For now this is just the old method in a new home. `Pick()` still has the same Rock-50% /
-Paper-25% / Scissors-25% bias you analyzed in Lesson 4 — still good enough for now, and
-Lesson 9 still owns proper uniform randomness. The point is not new behavior; it is that
-the opponent is now a *thing* with a clear place to keep state. In Lesson 6, that empty
-class body fills up with a memory.
+This is the old method in a new home, with **one change**: the Lesson 4 version called
+the bare `Rng.NextBool()`, and here it is `Rng.Chaotic.NextBool()`. That change is forced,
+not cosmetic — see the note below. Otherwise the logic is identical: `Pick()` still has the
+same Rock-50% / Paper-25% / Scissors-25% bias you analyzed in Lesson 4 — still good enough
+for now, and Lesson 9 still owns proper uniform randomness. The point is not new behavior;
+it is that the opponent is now a *thing* with a clear place to keep state. In Lesson 6, that
+empty class body fills up with a memory.
 
-> **`Rng.Chaotic.NextBool()`** — this is the global random-number source, the same one
-> `CoinFlip` uses (`Rng.Chaotic.NextBool()`). Because `RpsOpponent` is a plain class and
-> not an event, it reaches for the global RNG directly rather than an event-provided one.
-> The `using MegaCrit.Sts2.Core.Random;` at the top is what makes `Rng` available.
+> **Why `Rng.NextBool()` became `Rng.Chaotic.NextBool()`** — in Lesson 4, `PickComputerChoice`
+> lived *inside the event*, and the bare `Rng` was a convenience the `ModSmithEventModel` base
+> class provided (you will see how that inheritance works in Lesson 7). `RpsOpponent` is a
+> plain class, not an event, so it does not inherit that convenience. It has to reach for the
+> global random source directly: `Rng.Chaotic` — the same global generator the game falls back
+> to elsewhere (you saw it in `CoinFlip`). The `using MegaCrit.Sts2.Core.Random;` at the top
+> is what makes `Rng` available. Move event code into a plain class and you will hit exactly
+> this kind of "that helper isn't here anymore" adjustment — it is a normal part of extracting.
 
 ## Rewiring the event
 

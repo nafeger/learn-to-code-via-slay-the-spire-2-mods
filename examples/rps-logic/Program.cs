@@ -32,6 +32,7 @@ internal static class Program
         Console.WriteLine("=== RPS logic demo (Lessons 5-7) ===\n");
 
         allPassed &= DemoBestOfThreeMatch();
+        allPassed &= DemoScoreboardTracksDraws();
         allPassed &= DemoAdaptiveCountersASpammer();
         allPassed &= DemoRandomDoesNotAdapt();
 
@@ -70,6 +71,28 @@ internal static class Program
 
         bool ok = round >= 2 && (scoreboard.PlayerWonMatch() ^ scoreboard.ComputerWonMatch());
         Report("best-of-three reaches a single winner", ok);
+        return ok;
+    }
+
+    // Lesson 5: the scoreboard counts wins, losses, AND draws separately, and
+    // reports all three. (The best-of-three demo above never produces a draw with
+    // this seed, so this check covers the draw path the "W/L/D score line" promises.)
+    private static bool DemoScoreboardTracksDraws()
+    {
+        Scoreboard scoreboard = new();
+        scoreboard.Record(Outcome.Win);
+        scoreboard.Record(Outcome.Lose);
+        scoreboard.Record(Outcome.Draw);
+
+        string summary = scoreboard.Summary();
+        Console.WriteLine($"[Lesson 5] Scoreboard after one win, one loss, one draw: {summary}");
+
+        bool ok = summary.Contains("you: 1")
+            && summary.Contains("opponent: 1")
+            && summary.Contains("draws: 1")
+            && !scoreboard.PlayerWonMatch()      // one win is not a match win
+            && !scoreboard.ComputerWonMatch();
+        Report("scoreboard counts wins, losses, and draws separately", ok);
         return ok;
     }
 

@@ -83,9 +83,14 @@ public class RpsOpponent
         }
 
         Choice best = throws[0];
+        int bestCount = 0;
         foreach (var pair in counts)
         {
-            if (pair.Value > counts[best]) best = pair.Key;
+            if (pair.Value > bestCount)
+            {
+                best = pair.Key;
+                bestCount = pair.Value;
+            }
         }
         return best;
     }

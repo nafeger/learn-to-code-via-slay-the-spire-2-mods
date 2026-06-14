@@ -107,12 +107,14 @@ Choice MostFrequent(List<Choice> throws)
 {
     Dictionary<Choice, int> counts = Tally(throws);
 
-    Choice best = throws[0];              // assume the first is the winner to start
+    Choice best = throws[0];              // the key with the most counts so far...
+    int bestCount = 0;                    // ...and how many counts that is
     foreach (var pair in counts)          // each pair has a .Key and a .Value
     {
-        if (pair.Value > counts[best])    // this choice appears more often than our best
+        if (pair.Value > bestCount)       // this choice appears more often than our best
         {
             best = pair.Key;
+            bestCount = pair.Value;       // remember the new high count
         }
     }
     return best;
@@ -121,7 +123,10 @@ Choice MostFrequent(List<Choice> throws)
 
 `foreach (var pair in counts)` walks the dictionary's entries. Each `pair` has a `.Key` (a
 `Choice`) and a `.Value` (its count). The loop keeps the key with the highest count seen so
-far — the classic "max" pattern from Lesson 3, now over a dictionary.
+far — the classic "max" pattern from Lesson 3, now over a dictionary. Notice you track *two*
+things together: the best key (`best`) and its count (`bestCount`). Carrying the count in its
+own variable, instead of looking it up again as `counts[best]` each comparison, is the
+clearer way to write a max scan — one variable, updated in lockstep with the key it describes.
 
 `var` here means "let the compiler figure out the type of `pair`." It is exactly the type
 the loop produces (a key/value pair); writing `var` saves you naming a verbose type and
