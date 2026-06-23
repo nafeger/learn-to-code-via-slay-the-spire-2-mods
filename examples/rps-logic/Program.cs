@@ -87,7 +87,12 @@ internal static class Program
         string summary = scoreboard.Summary();
         Console.WriteLine($"[Lesson 5] Scoreboard after one win, one loss, one draw: {summary}");
 
-        bool ok = summary.Contains("you: 1")
+        // The event reads these count properties to build the player-facing SCORE text,
+        // so check them directly (not just via the Summary() debug string).
+        bool ok = scoreboard.PlayerWins == 1
+            && scoreboard.ComputerWins == 1
+            && scoreboard.Draws == 1
+            && summary.Contains("you: 1")
             && summary.Contains("opponent: 1")
             && summary.Contains("draws: 1")
             && !scoreboard.PlayerWonMatch()      // one win is not a match win

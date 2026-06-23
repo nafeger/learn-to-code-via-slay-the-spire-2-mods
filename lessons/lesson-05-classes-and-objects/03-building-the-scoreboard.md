@@ -11,7 +11,7 @@ Stated plainly, a scoreboard for a best-of-three match:
    draws.
 2. Records the result of a round.
 3. Reports whether someone has won the match (first to two).
-4. Describes the current score as text to show the player.
+4. Exposes the running counts so the event can show them to the player.
 
 That description names the fields and the methods, exactly like the method-design process
 in Lesson 4 — except now the data and the behavior live together in one class.
@@ -75,6 +75,11 @@ public class Scoreboard
     public bool PlayerWonMatch()   => playerWins   >= WINS_NEEDED;
     public bool ComputerWonMatch() => computerWins >= WINS_NEEDED;
 
+    // Read-only views of the counts, so the event can display them.
+    public int PlayerWins   => playerWins;
+    public int ComputerWins => computerWins;
+    public int Draws        => draws;
+
     public string Summary() =>
         $"Score — you: {playerWins}, opponent: {computerWins} (draws: {draws})";
 }
@@ -84,7 +89,15 @@ Read it as state plus behavior:
 
 - **State**: three private `int` fields, plus a `const` for the rule "first to two."
 - **Behavior**: `Record` changes the state; `PlayerWonMatch`/`ComputerWonMatch` ask
-  questions about it; `Summary` describes it.
+  questions about it; the three `Wins`/`Draws` properties expose the counts read-only.
+
+> **`Summary()` vs. what the player sees.** `Summary()` returns a plain, hard-coded English
+> string. That is perfect for a `Console.WriteLine` or a debug log — and that is exactly what
+> the console version of this game uses it for. But it can never be *translated*, so it is not
+> what the game's UI shows. In the next chapter the event reads the raw counts
+> (`PlayerWins`, `ComputerWins`, `Draws`) and feeds them into a localization key, which is the
+> translatable path. Keep `Summary()` as a developer convenience; the player-facing text is
+> built a different way.
 
 ### The pieces you have not seen as your own code
 
