@@ -6,14 +6,18 @@ Four exercises. Do A, B, and D; C is optional.
 
 ## Exercise A: Add a "rounds played" count
 
-Add a feature to `Scoreboard`: track the total number of rounds played, and include it in
-`Summary()`.
+Add a feature to `Scoreboard`: track the total number of rounds played, and show it to the
+player in the running-score line.
 
 **Step 1**: Add a private field `roundsPlayed`.
 
 **Step 2**: Update it in `Record` so every recorded result increases it by one.
 
-**Step 3**: Include it in the `Summary()` text, e.g. `"... (round 3)"`.
+**Step 3**: Expose it with a read-only property (like `PlayerWins`), then surface it to the
+player: add a `{roundsPlayed}` token to the `SCORE.description` text in `events.json`, and in
+the event's `else` branch call `score.Add("roundsPlayed", scoreboard.RoundsPlayed);` alongside
+the others. (Adding it to `Summary()` too is fine for console debugging — but the player only
+sees the localized text, so the token is the part that matters.)
 
 Think about *where* the increment goes. You want exactly one place that runs on every
 result, regardless of who won. Which method is that? (This is the single-source-of-truth
@@ -68,9 +72,11 @@ it hold, what does its constructor take, and what does `Describe()` return? This
 same "what objects exist and what does each one know" question from chapter 01, applied to a
 new little object.
 
-If you do wire it in, have `Play` create a `RoundResult` each round and use its `Describe()`
-in the `SetEventState` text instead of the bare score — so the player sees what just
-happened, not only the tally.
+If you do wire it in, remember `SetEventState` wants a `LocString`, not a string — so a raw
+`Describe()` string can't go straight in. Either add a `LAST_ROUND.description` key and feed
+the choices in as dynamic vars (`score.Add("playerThrow", ...)`), or keep `Describe()` for a
+`Console.WriteLine` while debugging. The design question — what fields it holds and what
+`Describe()` returns — is the real exercise; wiring it into the UI is the stretch.
 
 ---
 

@@ -76,6 +76,7 @@ using ModSmith.Models;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Events;
+using MegaCrit.Sts2.Core.Localization;          // LocString
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 
 namespace JacksMod;
@@ -119,7 +120,11 @@ public sealed class RockPaperScissors : ModSmithEventModel
             }
             else
             {
-                SetEventState(scoreboard.Summary(), GenerateInitialOptions());
+                LocString score = L10NLookup("ROCK_PAPER_SCISSORS.pages.SCORE.description");
+                score.Add("playerWins",   scoreboard.PlayerWins);
+                score.Add("computerWins", scoreboard.ComputerWins);
+                score.Add("draws",        scoreboard.Draws);
+                SetEventState(score, GenerateInitialOptions());
             }
         }
     }
@@ -166,7 +171,11 @@ There is no `for` or `while` here, yet the match loops. The mechanism is the sam
 Lesson 4's draw used: each round, if nobody has won the match yet, the `else` branch calls
 
 ```csharp
-SetEventState(scoreboard.Summary(), GenerateInitialOptions());
+LocString score = L10NLookup("ROCK_PAPER_SCISSORS.pages.SCORE.description");
+score.Add("playerWins",   scoreboard.PlayerWins);
+score.Add("computerWins", scoreboard.ComputerWins);
+score.Add("draws",        scoreboard.Draws);
+SetEventState(score, GenerateInitialOptions());
 ```
 
 which shows the running score and puts the three buttons back. The player clicks again,
@@ -179,6 +188,54 @@ This is worth sitting with: the score survives between clicks **only because** i
 a field of an object that the event holds. Put it in a local variable inside `Play` and it
 would reset to zero every round. The whole best-of-three feature rests on the
 class/object idea from this lesson.
+
+## Showing the score the translatable way
+
+You might expect to hand `SetEventState` the string from `Scoreboard.Summary()`. You cannot,
+and the compiler will stop you:
+
+```csharp
+// Does NOT compile — Summary() is a string, SetEventState wants a LocString.
+SetEventState(scoreboard.Summary(), GenerateInitialOptions());
+```
+
+`SetEventState` does not take a `string`. It takes a `LocString` — the game's *localized*
+text type. A `LocString` is not the finished text; it is a **reference to a key** in your
+`events.json` plus any dynamic values you attach. The game resolves it to actual text at
+display time, in whatever language the player is running. A raw C# string can't do that —
+it is frozen English — so there is no automatic conversion, which is why the line above is a
+compile error rather than a silent mistake.
+
+That is also why the score has to be built from a key. Two steps:
+
+```csharp
+LocString score = L10NLookup("ROCK_PAPER_SCISSORS.pages.SCORE.description");
+score.Add("playerWins",   scoreboard.PlayerWins);
+score.Add("computerWins", scoreboard.ComputerWins);
+score.Add("draws",        scoreboard.Draws);
+```
+
+1. `L10NLookup(key)` returns a `LocString` pointing at the `SCORE` text in `events.json`.
+2. `.Add(name, value)` attaches a **dynamic variable** — a live number the text can drop in.
+   This is the same mechanism behind `{Gold}` from Lesson 4, but supplied at runtime instead
+   of from `CanonicalVars`. Each round you call `Play`, you read the *current* counts off the
+   persistent `scoreboard` and add them, so the displayed score climbs with the match.
+
+Add the matching key to `JacksMod/localization/eng/events.json`, using `{...}` tokens whose
+names match the strings you passed to `.Add(...)`:
+
+```json
+"ROCK_PAPER_SCISSORS.pages.SCORE.description": "Score so far -- you: {playerWins}, opponent: {computerWins} (draws: {draws}). Best of three; pick again."
+```
+
+Now the score line is translatable (every language gets its own `SCORE` text) *and* dynamic
+(the `{playerWins}` token shows whatever number you added this round). `Summary()` is still
+fine for a `Console.WriteLine` while you debug — it just isn't what the player sees.
+
+> **Remember the prefix rule.** The key still begins with `ROCK_PAPER_SCISSORS` because that
+> is the class name in SCREAMING_SNAKE_CASE. A mismatch here is the most common cause of a
+> bare `NullReferenceException` from an event — see `MODDING.md` for the full troubleshooting
+> note.
 
 ## Register and build
 
@@ -202,6 +259,32 @@ each bundling its own state with the behavior that acts on it, and the event com
 
 The opponent still picks at random. That changes next: in Lesson 6 the opponent grows a
 memory of your throws.
+
+## Vetting the logic without launching the game
+
+Notice what just happened: `Scoreboard`, `RpsOpponent`, and `DetermineOutcome` are **plain
+C# classes**. They don't touch `LocString`, `SetEventState`, or anything from the game. Only
+the thin shell — `Play`'s branching and the `LocString` it builds — needs the game at all.
+
+That split is worth designing for on purpose, because **plain logic can be run and checked
+without starting Slay the Spire 2.** This repo ships a tiny console harness that does exactly
+that:
+
+```
+dotnet run --project examples/rps-logic
+```
+
+It drives the same `Scoreboard` and opponent classes and asserts they behave as the lessons
+claim (the scoreboard counts wins/losses/draws, a best-of-three reaches one winner, an
+adaptive opponent counters a predictable player). The one game touchpoint those classes need —
+`Rng.Chaotic` — is replaced with a small stand-in in `GameStubs.cs`. No Steam, no game window,
+a sub-second feedback loop.
+
+The boundary is real: the harness **cannot** vet the `LocString` / `SetEventState` wiring,
+because those types live in the game's `sts2.dll`. That layer only truly proves out in-game.
+The lesson there is to keep decisions in plain classes (cheap to check headless) and keep the
+game-framework shell as thin as you can — the more logic you pull into objects like
+`Scoreboard`, the more of your mod you can verify before ever loading the game.
 
 ## Vocabulary
 
