@@ -221,9 +221,32 @@ Notes:
   *you* choose. Only the first segment is enforced.
 - Text can embed dynamic vars (`{Gold}`) and rich-text tags (`[gold]…[/gold]`,
   `[blue]…[/blue]`).
-- A missing key does not crash — ModSmith's `MissingLocPatch` shows the key as fallback
-  text. Useful for debugging: the on-screen key is exactly the string the game tried to
-  find.
+- A missing key in a *rendering* path usually does not crash — ModSmith's `MissingLocPatch`
+  shows the key as fallback text, and the on-screen key is exactly the string the game tried
+  to find. **But this safety net does not cover every path** — see the troubleshooting note
+  below.
+
+### Troubleshooting: `NullReferenceException` ("Object reference not set to an instance of an object") from an event
+
+This is the failure mode that wastes the most time, because the exception names neither the
+key nor the class — just a bare null dereference, often pointing into your event's option
+setup (`GenerateInitialOptions` / the method behind an `EventOption` callback).
+
+**Most likely cause:** your localization key prefix does not match the class name. The
+framework derives the content's identity from the class name (`RockPaperScissors` →
+`ROCK_PAPER_SCISSORS`) and looks up *that* prefix. If your keys say `RPS.*`, the
+framework's own lookup returns null and throws before `MissingLocPatch`'s on-screen
+fallback ever runs — so unlike a missing key in a render path, you get a crash with no
+fallback text and no hint about which key is wrong.
+
+**How to confirm:** build with debug symbols so the stack trace carries line numbers
+(`<DebugType>embedded</DebugType>` in your `.csproj`), reproduce, and check whether the
+throwing frame is in your event's option construction. If so, it is almost always this.
+
+**Fix:** make the first segment of *every* key for that content match the class name in
+SCREAMING_SNAKE_CASE — in both the `.cs` lookups and the `localization/eng/*.json` file —
+or rename the class so its SCREAMING_SNAKE_CASE form matches the prefix you already use.
+The two must agree.
 
 ---
 
